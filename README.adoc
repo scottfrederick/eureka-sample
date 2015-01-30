@@ -1,0 +1,40 @@
+= Spring Cloud Netflix Eureka sample app
+
+== Building
+
+Build the app with the following command:
+
+[source,bash]
+----
+$ ./gradlew assemble
+----
+
+== Running on Cloud Foundry
+
+When running on CF, the app will expect to be bound to a Eureka service registry service instance with the name `registry`. Create a service instance and push the app with the following commands:
+
+[source,bash]
+----
+$ cf cs p-service-registry standard registry
+$ cf push eureka-sample
+----
+
+Once the app is running, it should register itself to Eureka so you can see it on the Eureka dashboard. Browse to the app's route URL and use the links provided to change its status as registered to Eureka. Scaling the app to multiple instances to see multiple instances in the Eureka dashboard.
+
+Push additional copies of the app with different names to see multiple apps registered to Eureka:
+
+[source,bash]
+----
+$ cf push another-sample
+----
+
+== Running locally
+
+Run the app locally with the following command:
+
+[source,bash]
+----
+$ java -jar build/libs/eureka-sample.jar
+----
+
+The app will expect a Eureka server to be running at the address `http://localhost:8080`, and will authenticate to Eureka with the username `admin` and the password `admin`.

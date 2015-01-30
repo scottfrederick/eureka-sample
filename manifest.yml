@@ -1,0 +1,7 @@
+---
+applications:
+- name: eureka-sample
+  memory: 512M
+  instances: 1
+  path: build/libs/eureka-sample.jar
+  services: [registry]
