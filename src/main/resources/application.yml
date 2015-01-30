@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: eureka-sample3
+
+server:
+  port: 8081
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 5
+    metadataMap:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    serviceUrl:
+      defaultZone: http://admin:admin@localhost:8080/eureka/
+    availabilityZones:
+      default: ${APPLICATION_DOMAIN:${DOMAIN:defaultZone}}
