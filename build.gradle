@@ -1,6 +1,8 @@
 buildscript {
     ext {
-        springBootVersion = '1.2.0.RELEASE'
+        springBootVersion = '1.2.2.RELEASE'
+        springCloudVersion = '1.0.0.RELEASE'
+        springCloudConnectorsVersion = '1.0.0.BUILD-SNAPSHOT'
     }
     repositories {
         mavenCentral()
@@ -32,7 +34,11 @@ repositories {
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile("org.springframework.cloud:spring-cloud-starter-eureka:1.0.0.RC1")
+    compile("org.springframework.cloud:spring-cloud-starter-eureka:${springCloudVersion}")
+
+    compile("org.springframework.cloud:spring-cloud-pivotal-cloudfoundry-connector:${springCloudConnectorsVersion}")
+    compile("org.springframework.cloud:spring-cloud-pivotal-spring-connector:${springCloudConnectorsVersion}")
+
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
@@ -44,5 +50,5 @@ eclipse {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.12'
+    gradleVersion = '2.3'
 }

@@ -11,8 +11,3 @@ eureka:
     hostname: ${vcap.application.uris[0]:localhost}
     metadataMap:
       instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-  client:
-    serviceUrl:
-      defaultZone: ${vcap.services.registry.credentials.uri:http://admin:admin@localhost:8080}/eureka/
-    availabilityZones:
-      default: ${APPLICATION_DOMAIN:${DOMAIN:defaultZone}}
