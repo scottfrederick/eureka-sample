@@ -1,54 +1,65 @@
 buildscript {
-    ext {
-        springBootVersion = '1.2.2.RELEASE'
-        springCloudVersion = '1.0.0.RELEASE'
-        springCloudConnectorsVersion = '1.0.0.BUILD-SNAPSHOT'
-    }
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+	ext {
+		springBootVersion = '1.2.2.RELEASE'
+		springCloudVersion = '1.0.1.RELEASE'
+		springCloudConnectorsVersion = '1.0.0.BUILD-SNAPSHOT'
+	}
+	repositories {
+		mavenCentral()
+		maven { url 'https://repo.spring.io/libs-release' }
+		maven { url 'https://repo.spring.io/libs-snapshot' }
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath('io.spring.gradle:dependency-management-plugin:0.5.0.RELEASE')
+	}
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-apply plugin: 'spring-boot' 
+apply plugin: 'spring-boot'
+apply plugin: 'io.spring.dependency-management'
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-starter-parent:${springCloudVersion}"
+	}
+}
 
 jar {
-    baseName = 'eureka-sample'
-    version = ''
+	baseName = 'eureka-sample'
+	version = ''
 }
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 repositories {
-    mavenCentral()
-    mavenLocal()
-    maven { url 'https://repo.spring.io/milestone' }
+	mavenCentral()
+	mavenLocal()
+	maven { url 'https://repo.spring.io/libs-milestone' }
+	maven { url 'https://repo.spring.io/libs-snapshot' }
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile("org.springframework.cloud:spring-cloud-starter-eureka:${springCloudVersion}")
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-actuator")
+	compile("org.springframework.cloud:spring-cloud-starter-eureka")
 
     compile("org.springframework.cloud:spring-cloud-pivotal-cloudfoundry-connector:${springCloudConnectorsVersion}")
     compile("org.springframework.cloud:spring-cloud-pivotal-spring-connector:${springCloudConnectorsVersion}")
 
-    testCompile("org.springframework.boot:spring-boot-starter-test")
+	testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
 eclipse {
-    classpath {
-         containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
-         containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7'
-    }
+	classpath {
+		containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+		containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7'
+	}
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+	gradleVersion = '2.3'
 }

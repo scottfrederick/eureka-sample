@@ -11,7 +11,7 @@ $ ./gradlew assemble
 
 == Running on Cloud Foundry
 
-When running on CF, the app will expect to be bound to a Eureka service registry service instance with the name `registry`. Create a service instance and push the app with the following commands:
+When running on CF, the app will expect to be bound to a Service Registry service instance with the name `registry`. Create a service instance and push the app with the following commands:
 
 [source,bash]
 ----

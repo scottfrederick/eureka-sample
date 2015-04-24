@@ -1,11 +1,16 @@
 package org.springframework.cloud.netflix.eureka.sample.config;
 
-import org.springframework.cloud.config.java.ServiceScan;
+import com.netflix.discovery.EurekaClientConfig;
+import org.springframework.cloud.pivotal.config.java.CloudConnectorsConfig;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-@ServiceScan
 @Profile("cloud")
-public class CloudConfig {
+public class CloudConfig extends CloudConnectorsConfig {
+	@Bean
+	public EurekaClientConfig eurekaClientConfig() {
+		return connectionFactory().eurekaClientConfig();
+	}
 }
