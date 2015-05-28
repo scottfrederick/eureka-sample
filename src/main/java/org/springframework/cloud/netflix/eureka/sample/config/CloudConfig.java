@@ -1,7 +1,7 @@
 package org.springframework.cloud.netflix.eureka.sample.config;
 
 import com.netflix.discovery.EurekaClientConfig;
-import org.springframework.cloud.pivotal.config.java.CloudConnectorsConfig;
+import io.pivotal.spring.cloud.config.java.CloudConnectorsConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
