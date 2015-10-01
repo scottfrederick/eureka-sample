@@ -35,7 +35,10 @@ Apps that take a long time to shut down can be killed by Cloud Foundry before th
 [source,bash]
 ----
 $ cf set-env eureka-sample SHUTDOWN_DELAY 15
+$ cf restage eureka-sample
 ----
+
+After the app has been staged with this environment variable, stopping the application (e.g. `cf stop eureka-sample`) should result in `DOWN` instances in Eureka.
 
 == Running locally
 
