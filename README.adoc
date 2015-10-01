@@ -11,11 +11,11 @@ $ ./gradlew assemble
 
 == Running on Cloud Foundry
 
-When running on CF, the app will expect to be bound to a Service Registry service instance with the name `registry`. Create a service instance and push the app with the following commands:
+When running on CF, the app will expect to be bound to a Service Registry service instance with the name `service-registry`. Create a service instance and push the app with the following commands:
 
 [source,bash]
 ----
-$ cf cs p-service-registry standard registry
+$ cf cs p-service-registry standard service-registry
 $ cf push eureka-sample
 ----
 
@@ -26,6 +26,15 @@ Push additional copies of the app with different names to see multiple apps regi
 [source,bash]
 ----
 $ cf push another-sample
+----
+
+==== Simulating hard shutdown without canceling Eureka registration
+
+Apps that take a long time to shut down can be killed by Cloud Foundry before they get a chance to cancel their registration to Eureka. This will lead to instances being marked as `DOWN` in Eureka with their leases never being cancelled. To simulate this condition, set the following environment variable on the app to cause a shutdown delay:
+
+[source,bash]
+----
+$ cf set-env eureka-sample SHUTDOWN_DELAY 15
 ----
 
 == Running locally

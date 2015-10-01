@@ -1,9 +1,9 @@
 spring:
   application:
     name: ${vcap.application.name:eureka-sample}
-#  cloud:
-#    services:
-#      registrationMethod: route
+  cloud:
+    services:
+      registrationMethod: route
 
 server:
   port: 8081
@@ -19,4 +19,4 @@ eureka:
     metadataMap:
       instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 
-shutdownDelaySeconds: 5
+shutdown.delay: 5

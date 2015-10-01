@@ -10,7 +10,7 @@ import javax.annotation.PreDestroy;
 @Component
 @Slf4j
 public class LifecycleComponent {
-	@Value("${shutdownDelaySeconds}")
+	@Value("${shutdown.delay}")
 	private int shutdownDelaySeconds;
 
 	@PostConstruct
