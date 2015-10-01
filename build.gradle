@@ -1,17 +1,18 @@
 buildscript {
 	ext {
-		springBootVersion = '1.2.2.RELEASE'
-		springCloudVersion = '1.0.1.RELEASE'
-		springCloudConnectorsVersion = '1.0.0.M1'
+		springBootVersion = '1.2.5.RELEASE'
+		springCloudVersion = '1.0.0.BUILD-SNAPSHOT'
 	}
 	repositories {
 		mavenCentral()
 		maven { url 'https://repo.spring.io/libs-release' }
-		maven { url 'https://repo.spring.io/libs-snapshot' }
+		maven { url 'https://repo.spring.io/libs-milestone' }
+		maven { url "https://repo.spring.io/plugins-release" }
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath('io.spring.gradle:dependency-management-plugin:0.5.0.RELEASE')
+		classpath("io.spring.gradle:dependency-management-plugin:0.5.3.RELEASE")
+		classpath("org.springframework.build.gradle:propdeps-plugin:0.0.7")
 	}
 }
 
@@ -20,10 +21,12 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'propdeps'
+apply plugin: "propdeps-idea"
 
 dependencyManagement {
 	imports {
-		mavenBom "org.springframework.cloud:spring-cloud-starter-parent:${springCloudVersion}"
+		mavenBom "io.pivotal.spring.cloud:spring-cloud-services-starter-parent:${springCloudVersion}"
 	}
 }
 
@@ -38,17 +41,17 @@ targetCompatibility = 1.7
 repositories {
 	mavenCentral()
 	maven { url 'https://repo.spring.io/libs-milestone' }
+	maven { url 'https://repo.spring.io/libs-snapshot' }
 }
-
-ext['spring-cloud-connectors.version'] = '1.2.0.RC1'
 
 dependencies {
 	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.springframework.boot:spring-boot-starter-actuator")
-	compile("org.springframework.cloud:spring-cloud-starter-eureka")
 
-	compile("io.pivotal.spring.cloud:spring-cloud-pivotal-cloudfoundry-connector:${springCloudConnectorsVersion}")
-	compile("io.pivotal.spring.cloud:spring-cloud-pivotal-spring-connector:${springCloudConnectorsVersion}")
+	compile("io.pivotal.spring.cloud:spring-cloud-services-starter-service-registry")
+	compile("io.pivotal.spring.cloud:cloudfoundry-certificate-truster:1.0.0.BUILD-SNAPSHOT")
+
+	provided("org.projectlombok:lombok")
 
 	testCompile("org.springframework.boot:spring-boot-starter-test")
 }
@@ -61,5 +64,5 @@ eclipse {
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion = '2.3'
+	gradleVersion = '2.7'
 }
