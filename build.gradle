@@ -1,7 +1,7 @@
 buildscript {
 	ext {
 		springBootVersion = '1.2.5.RELEASE'
-		springCloudVersion = '1.0.0.BUILD-SNAPSHOT'
+		springCloudVersion = '1.0.0.RC2'
 	}
 	repositories {
 		mavenCentral()
@@ -49,6 +49,8 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-actuator")
 
 	compile("io.pivotal.spring.cloud:spring-cloud-services-starter-service-registry")
+//	compile("io.pivotal.spring.cloud:spring-cloud-services-cloudfoundry-connector:1.0.0.BUILD-SNAPSHOT")
+//	compile("io.pivotal.spring.cloud:spring-cloud-services-spring-connector:1.0.0.BUILD-SNAPSHOT")
 	compile("io.pivotal.spring.cloud:cloudfoundry-certificate-truster:1.0.0.BUILD-SNAPSHOT")
 
 	provided("org.projectlombok:lombok")

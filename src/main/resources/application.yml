@@ -12,11 +12,15 @@ security:
   basic:
     enabled: false
 
+management:
+  security:
+    enabled: false
+
 eureka:
   instance:
     leaseRenewalIntervalInSeconds: 5
     hostname: ${vcap.application.uris[0]:localhost}
     metadataMap:
-      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+      instanceId: ${vcap.application.instance_index:spring.application.instance_id}
 
 shutdown.delay: 5
